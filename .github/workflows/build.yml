@@ -16,7 +16,9 @@ jobs:
           - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - name: asdf_plugin_test
-        uses: asdf-vm/actions/plugin-test@v2
-        with:
-          command: selleo version
+      - run: git clone https://github.com/asdf-vm/asdf.git
+      - run: . asdf/asdf.sh && asdf plugin add selleo https://github.com/selleo/asdf-cli.git
+      - run: . asdf/asdf.sh && asdf install selleo latest
+      - run: . asdf/asdf.sh && asdf global selleo latest
+      - name: test
+        run: . asdf/asdf.sh && selleo version
