@@ -25,22 +25,20 @@
 Plugin:
 
 ```shell
-asdf plugin add cli
-# or
-asdf plugin add cli https://github.com/selleo/asdf-cli.git
+asdf plugin add selleo https://github.com/selleo/asdf-cli.git
 ```
 
 cli:
 
 ```shell
 # Show all installable versions
-asdf list-all cli
+asdf list-all selleo
 
 # Install specific version
-asdf install cli latest
+asdf install selleo latest
 
 # Set a version globally (on your ~/.tool-versions file)
-asdf global cli latest
+asdf global selleo latest
 
 # Now cli commands are available
 selleo version

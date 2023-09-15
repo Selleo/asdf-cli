@@ -46,7 +46,7 @@ download_release() {
 	local -r arch="$(get_arch)"
 	url="$GH_REPO/releases/download/v${version}/cli_${version}_${platform}_${arch}.tar.gz"
 
-	echo "* Downloading $TOOL_NAME release $version..."
+	echo "* Downloading $TOOL_NAME release $version... (file: $filename)"
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
