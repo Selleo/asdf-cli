@@ -4,7 +4,7 @@ set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for cli.
 GH_REPO="https://github.com/selleo/cli"
-TOOL_NAME="selleo"
+TOOL_NAME="cli"
 TOOL_TEST="selleo version"
 
 fail() {
@@ -64,8 +64,7 @@ install_version() {
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 
 		mkdir -p "$install_path"
-		# cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
-		cp "$ASDF_DOWNLOAD_PATH"/$tool_cmd "$install_path"
+		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
 		# TODO: Assert cli executable exists.
 		local tool_cmd
@@ -74,7 +73,7 @@ install_version() {
 
 		echo "$TOOL_NAME $version installation was successful!"
 	) || (
-		rm -rf "$install_path"
+		# rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
 	)
 }
