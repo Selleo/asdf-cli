@@ -65,6 +65,8 @@ install_version() {
 
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		ls -la "$ASDF_DOWNLOAD_PATH"
+		ls -la "$install_path"
 
 		# TODO: Assert cli executable exists.
 		local tool_cmd
