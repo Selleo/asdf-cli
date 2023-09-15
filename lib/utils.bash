@@ -4,7 +4,7 @@ set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for cli.
 GH_REPO="https://github.com/selleo/cli"
-TOOL_NAME="cli"
+TOOL_NAME="selleo"
 TOOL_TEST="selleo version"
 
 fail() {
