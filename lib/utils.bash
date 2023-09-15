@@ -65,6 +65,7 @@ install_version() {
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 
 		mkdir -p "$install_path"
+		echo "cp -r $ASDF_DOWNLOAD_PATH/ $install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		ls -la "$ASDF_DOWNLOAD_PATH"
 		ls -la "$install_path"
@@ -76,7 +77,7 @@ install_version() {
 
 		echo "$TOOL_NAME $version installation was successful!"
 	) || (
-		# rm -rf "$install_path"
+		rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
 	)
 }
