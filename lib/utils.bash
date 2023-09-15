@@ -37,14 +37,16 @@ list_all_versions() {
 }
 
 download_release() {
+
 	local version filename url
 	version="$1"
 	filename="$2"
 
-	# TODO: Adapt the release URL convention for cli
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	# FIXED: Adapt the release URL convention for cli
+	local -r platform="$(get_platform)"
+	local -r arch="$(get_arch)"
+	url="$GH_REPO/releases/download/v${version}/cli_${version}_${platform}_${arch}.tar.gz"
 
-	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
@@ -58,10 +60,12 @@ install_version() {
 	fi
 
 	(
+		local tool_cmd
+		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-		# TODO: Assert cli executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
@@ -71,4 +75,17 @@ install_version() {
 		rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
 	)
+}
+
+get_arch() {
+	local -r machine="$(uname -m)"
+	if [ "$machine" == "arm64" ] || [ "$machine" == "aarch64" ]; then
+		echo "arm64"
+	else
+		echo "amd64"
+	fi
+}
+
+get_platform() {
+	uname | tr '[:upper:]' '[:lower:]'
 }
