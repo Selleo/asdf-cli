@@ -37,6 +37,7 @@ list_all_versions() {
 }
 
 download_release() {
+
 	local version filename url
 	version="$1"
 	filename="$2"
@@ -49,6 +50,9 @@ download_release() {
 	echo "* Downloading $TOOL_NAME release $version... (file: $filename)"
 	echo "${curl_opts[@]} -o $filename -C - $url"
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+
+	echo "------------ DOWNLOAD RELEASE"
+	ls -la "$ASDF_DOWNLOAD_PATH"
 }
 
 install_version() {
@@ -66,9 +70,10 @@ install_version() {
 
 		mkdir -p "$install_path"
 		echo "cp -r $ASDF_DOWNLOAD_PATH/ $install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		ls -la "$ASDF_DOWNLOAD_PATH"
 		ls -la "$install_path"
+
+		cp "$ASDF_DOWNLOAD_PATH"/selleo "$install_path"
 
 		# TODO: Assert cli executable exists.
 		local tool_cmd
